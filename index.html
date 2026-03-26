@@ -25,15 +25,15 @@
   </p>
 
   <div class="info-row">
-    <span class="label">Toestelnummer</span>
+    <span class="label">Toestel</span>
     <span class="value" id="inv">Laden...</span>
   </div>
   <div class="info-row">
-    <span class="label">Lokaal</span>
+    <span class="label">Lokaal / Locatie</span>
     <span class="value" id="lokaal">Laden...</span>
   </div>
   <div class="info-row">
-    <span class="label">Type toestel</span>
+    <span class="label">Extra info</span>
     <span class="value" id="type">Laden...</span>
   </div>
 
@@ -44,28 +44,5 @@
 </div>
 
 <script>
-  // Jouw specifieke Microsoft Forms link is hieronder ingevuld:
+  // De link naar jouw Microsoft Form
   const FORMS_LINK = 'https://forms.cloud.microsoft/e/DKAdJ30CPG';
-
-  // De code haalt de info uit de URL (bijv. ?inv=PC01)
-  const p = new URLSearchParams(window.location.search);
-  const inv    = p.get('inv')    || 'Onbekend';
-  const lokaal = p.get('lokaal') || 'Onbekend';
-  const type   = p.get('type')   || 'Onbekend';
-
-  // Toon de info op je scherm
-  document.getElementById('inv').textContent    = inv;
-  document.getElementById('lokaal').textContent  = lokaal;
-  document.getElementById('type').textContent   = type;
-
-  // We bouwen de link naar Forms en vullen de eerste 3 velden in
-  // Let op: we gebruiken field1, field2 en field3 als standaard namen
-  const url = FORMS_LINK + '?field1=' + encodeURIComponent(inv) + 
-                           '&field2=' + encodeURIComponent(lokaal) + 
-                           '&field3=' + encodeURIComponent(type);
-  
-  document.getElementById('form-link').href = url;
-</script>
-
-</body>
-</html>
