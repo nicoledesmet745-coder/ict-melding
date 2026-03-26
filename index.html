@@ -26,11 +26,11 @@
 
   <div class="info-row">
     <span class="label">Toestel/Type</span>
-    <span class="value" id="display-inv">Laden...</span>
+    <span class="value" id="display-inv">Zoeken...</span>
   </div>
   <div class="info-row">
     <span class="label">Lokaal / Locatie</span>
-    <span class="value" id="display-lokaal">Laden...</span>
+    <span class="value" id="display-lokaal">Zoeken...</span>
   </div>
 
   <a class="btn" id="final-link" href="#">
@@ -40,23 +40,30 @@
 </div>
 
 <script>
-  // 1. Gegevens uit de URL halen (?inv=...&lokaal=...&type=...)
-  const params = new URLSearchParams(window.location.search);
-  const inv    = params.get('inv')    || 'Algemeen';
-  const lokaal = params.get('lokaal') || 'Niet opgegeven';
-  const type   = params.get('type')   || '';
+  window.onload = function() {
+    try {
+      // 1. Gegevens uit de URL halen
+      const params = new URLSearchParams(window.location.search);
+      const inv    = params.get('inv')    || 'Algemeen';
+      const lokaal = params.get('lokaal') || 'Onbekend lokaal';
+      const type   = params.get('type')   || '';
 
-  // 2. Toon de tekst op het scherm voor de gebruiker
-  document.getElementById('display-inv').textContent = type + " " + inv;
-  document.getElementById('display-lokaal').textContent = lokaal;
+      // 2. Tekst direct invullen op het scherm
+      document.getElementById('display-inv').innerText = type + " " + inv;
+      document.getElementById('display-lokaal').innerText = lokaal;
 
-  // 3. Jouw unieke Microsoft Forms Link met de juiste codes (r98ede... en r09ce...)
-  // We plakken de info direct in de link
-  const finalUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kjnh2hzODEa2eu8TTDGpyZuPt7g24ghFt1g3AGgjF61UMzFNRzEzR0xUNzNaTFYyNVNOMlNPODhZOC4u" + 
-                   "&r98ede2d1cbd5465bb516894d93a95288=" + encodeURIComponent(type + " " + inv) + 
-                   "&r09ce00bb6a2043f78e5cf3adae5b5f05=" + encodeURIComponent(lokaal);
+      // 3. De exacte Microsoft Link (Helemaal op 1 regel om fouten te voorkomen)
+      const base = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kjnh2hzODEa2eu8TTDGpyZuPt7g24ghFt1g3AGgjF61UMzFNRzEzR0xUNzNaTFYyNVNOMlNPODhZOC4u";
+      const q1 = "&r98ede2d1cbd5465bb516894d93a95288=" + encodeURIComponent(type + " " + inv);
+      const q2 = "&r09ce00bb6a2043f78e5cf3adae5b5f05=" + encodeURIComponent(lokaal);
 
-  document.getElementById('final-link').href = finalUrl;
+      document.getElementById('final-link').href = base + q1 + q2;
+      
+    } catch (err) {
+      console.log("Foutje in script: ", err);
+      document.getElementById('display-inv').innerText = "Fout bij laden";
+    }
+  };
 </script>
 
 </body>
