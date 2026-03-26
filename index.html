@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ICT Melding — Bevestiging</title>
+  <style>
+    body { font-family: sans-serif; max-width: 480px; margin: 40px auto; padding: 20px; background: #f5f5f3; color: #1a1a18; }
+    .card { background: white; border-radius: 12px; padding: 28px; border: 1px solid #e0dfd8; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    .info-row { display: flex; justify-content: space-between; border-bottom: 1px solid #e0dfd8; padding: 10px 0; font-size: 15px; }
+    .label { color: #6b6b66; }
+    .value { font-weight: 600; color: #0f6e56; }
+    .btn { display: block; width: 100%; margin-top: 24px; padding: 14px; background: #0f6e56; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
+    .btn:hover { background: #085041; }
+    .footer { margin-top: 16px; font-size: 12px; color: #9b9b96; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Probleem melden</h1>
+  <p style="color:#6b6b66;margin-bottom:20px;font-size:14px">
+    Je meldt een probleem voor het onderstaande toestel. Klik op de knop om het formulier te openen.
+  </p>
+
+  <div class="info-row">
+    <span class="label">Toestelnummer</span>
+    <span class="value" id="inv">Laden...</span>
+  </div>
+  <div class="info-row">
+    <span class="label">Lokaal</span>
+    <span class="value" id="lokaal">Laden...</span>
+  </div>
+  <div class="info-row">
+    <span class="label">Type toestel</span>
+    <span class="value" id="type">Laden...</span>
+  </div>
+
+  <a class="btn" id="form-link" href="#">
+    Formulier invullen →
+  </a>
+  <p class="footer">ICT-dienst — Meldingssysteem</p>
+</div>
+
+<script>
+  // Jouw specifieke Microsoft Forms link is hieronder ingevuld:
+  const FORMS_LINK = 'https://forms.cloud.microsoft/e/DKAdJ30CPG';
+
+  // De code haalt de info uit de URL (bijv. ?inv=PC01)
+  const p = new URLSearchParams(window.location.search);
+  const inv    = p.get('inv')    || 'Onbekend';
+  const lokaal = p.get('lokaal') || 'Onbekend';
+  const type   = p.get('type')   || 'Onbekend';
+
+  // Toon de info op je scherm
+  document.getElementById('inv').textContent    = inv;
+  document.getElementById('lokaal').textContent  = lokaal;
+  document.getElementById('type').textContent   = type;
+
+  // We bouwen de link naar Forms en vullen de eerste 3 velden in
+  // Let op: we gebruiken field1, field2 en field3 als standaard namen
+  const url = FORMS_LINK + '?field1=' + encodeURIComponent(inv) + 
+                           '&field2=' + encodeURIComponent(lokaal) + 
+                           '&field3=' + encodeURIComponent(type);
+  
+  document.getElementById('form-link').href = url;
+</script>
+
+</body>
+</html>
