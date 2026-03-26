@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ICT Melding — Bevestiging</title>
+  <title>ICT Melding — TechniGO!</title>
   <style>
     body { font-family: sans-serif; max-width: 480px; margin: 40px auto; padding: 20px; background: #f5f5f3; color: #1a1a18; }
     .card { background: white; border-radius: 12px; padding: 28px; border: 1px solid #e0dfd8; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -11,8 +11,8 @@
     .info-row { display: flex; justify-content: space-between; border-bottom: 1px solid #e0dfd8; padding: 10px 0; font-size: 15px; }
     .label { color: #6b6b66; }
     .value { font-weight: 600; color: #0f6e56; }
-    .btn { display: block; width: 100%; margin-top: 24px; padding: 14px; background: #0f6e56; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
-    .btn:hover { background: #085041; }
+    .btn { display: block; width: 100%; margin-top: 24px; padding: 14px; background: #0f6e56; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; }
+    .btn:hover { background: #085041; transform: scale(1.02); }
     .footer { margin-top: 16px; font-size: 12px; color: #9b9b96; text-align: center; }
   </style>
 </head>
@@ -21,28 +21,43 @@
 <div class="card">
   <h1>Probleem melden</h1>
   <p style="color:#6b6b66;margin-bottom:20px;font-size:14px">
-    Je meldt een probleem voor het onderstaande toestel. Klik op de knop om het formulier te openen.
+    Bevestig de locatie en klik op de knop om het defect door te geven aan de ICT-dienst.
   </p>
 
   <div class="info-row">
-    <span class="label">Toestel</span>
-    <span class="value" id="inv">Laden...</span>
+    <span class="label">Toestel/Type</span>
+    <span class="value" id="display-inv">Laden...</span>
   </div>
   <div class="info-row">
     <span class="label">Lokaal / Locatie</span>
-    <span class="value" id="lokaal">Laden...</span>
-  </div>
-  <div class="info-row">
-    <span class="label">Extra info</span>
-    <span class="value" id="type">Laden...</span>
+    <span class="value" id="display-lokaal">Laden...</span>
   </div>
 
-  <a class="btn" id="form-link" href="#">
-    Formulier invullen →
+  <a class="btn" id="final-link" href="#">
+    Meldingsformulier Openen →
   </a>
-  <p class="footer">ICT-dienst — Meldingssysteem</p>
+  <p class="footer">TechniGO! — ICT Meldpunt</p>
 </div>
 
 <script>
-  // De link naar jouw Microsoft Form
-  const FORMS_LINK = 'https://forms.cloud.microsoft/e/DKAdJ30CPG';
+  // 1. Gegevens uit de URL halen (?inv=...&lokaal=...&type=...)
+  const params = new URLSearchParams(window.location.search);
+  const inv    = params.get('inv')    || 'Algemeen';
+  const lokaal = params.get('lokaal') || 'Niet opgegeven';
+  const type   = params.get('type')   || '';
+
+  // 2. Toon de tekst op het scherm voor de gebruiker
+  document.getElementById('display-inv').textContent = type + " " + inv;
+  document.getElementById('display-lokaal').textContent = lokaal;
+
+  // 3. Jouw unieke Microsoft Forms Link met de juiste codes (r98ede... en r09ce...)
+  // We plakken de info direct in de link
+  const finalUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kjnh2hzODEa2eu8TTDGpyZuPt7g24ghFt1g3AGgjF61UMzFNRzEzR0xUNzNaTFYyNVNOMlNPODhZOC4u" + 
+                   "&r98ede2d1cbd5465bb516894d93a95288=" + encodeURIComponent(type + " " + inv) + 
+                   "&r09ce00bb6a2043f78e5cf3adae5b5f05=" + encodeURIComponent(lokaal);
+
+  document.getElementById('final-link').href = finalUrl;
+</script>
+
+</body>
+</html>
