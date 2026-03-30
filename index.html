@@ -52,8 +52,11 @@
       document.getElementById('display-inv').innerText = type + " " + inv;
       document.getElementById('display-lokaal').innerText = lokaal;
 
-      // 3. De exacte Microsoft Link (Helemaal op 1 regel om fouten te voorkomen)
-      const base = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kjnh2hzODEa2eu8TTDGpyZuPt7g24ghFt1g3AGgjF61UMzFNRzEzR0xUNzNaTFYyNVNOMlNPODhZOC4u";
+      // 3. De nieuwe Microsoft Link (Aangepast naar jouw nieuwe formulier)
+      const base = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kjnh2hzODEa2eu8TTDGpyZuPt7g24ghFt1g3AGgjF61UQVgxN0xKUklRVEhENkhPRzNENldISjI4RS4u";
+      
+      // LET OP: Deze ID's (r98ede... en r09ce...) horen bij je oude formulier. 
+      // Als de gegevens niet automatisch ingevuld worden, moeten we deze codes updaten.
       const q1 = "&r98ede2d1cbd5465bb516894d93a95288=" + encodeURIComponent(type + " " + inv);
       const q2 = "&r09ce00bb6a2043f78e5cf3adae5b5f05=" + encodeURIComponent(lokaal);
 
